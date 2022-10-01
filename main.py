@@ -30,13 +30,14 @@ l_login.place(x=5, y=5)
 l_linha = Label(frame_cima, text="", width=275, anchor=NW, font=("Ivy 1"), bg=cor2, fg=cor4) 
 l_linha.place(x=10, y=45)
 
-def verificar():
-	credenciais = [
+credenciais = [
 		{
 			"user": "Luis", 
 			"password": "123456"
 		}
 	]
+
+def verificar():
 	# obtendo os dados digitados:
 	user = i_user.get()
 	password = i_password.get()
@@ -51,12 +52,30 @@ def verificar():
 		messagebox.showinfo("Login", f"Seja Bem vindo(a) {user}!")
 		print(f"Usuário {user} acessou o sistema.")
 
+		# Percorrendo os frames e destruindo os conteúdos(limpar):
+		for widget in frame_cima.winfo_children():
+			widget.destroy()
+
+		for widget in frame_baixo.winfo_children():
+			widget.destroy()
+
+		novaJanela()
+
 	# Caso os dados sejam inválidos:
 	else:
 		messagebox.showinfo("Falha no Login","Ops! Credênciais inválidas...")
 		print("Falha ao logar no sistema.")
 
 
+def novaJanela():
+	l_login = Label(frame_cima, text=f"Seja Bem vindo(a): {credenciais[0]['user']}", anchor=NE, font=("Ivy 15"), bg=cor1, fg=cor4)
+	l_login.place(x=5, y=5)
+
+	l_linha = Label(frame_cima, text="", width=275, anchor=NW, font=("Ivy 1"), bg=cor2, fg=cor4) 
+	l_linha.place(x=10, y=45)
+
+	l_user = Label(frame_baixo, text="Textos e informações", anchor=NW, font=("Ivy 15"), bg=cor1, fg=cor4)
+	l_user.place(x=5, y=105)	
 
 # Parte de baixo:
 frame_baixo = Frame(janela, width=310, height=250, bg=cor1, relief="flat" )
@@ -77,7 +96,7 @@ l_password = Label(frame_baixo, text="Password: ", anchor=NW, font=("Ivy 10"), b
 l_password.place(x=10, y=95)
 
 # Caixa de entrada(input) do user:
-i_password = Entry(frame_baixo, width=20, justify="left", font=("", 15), highlightthickness=1, relief="solid") # Caixa da entrada de dados:
+i_password = Entry(frame_baixo, width=20, show="*", justify="left", font=("", 15), highlightthickness=1, relief="solid")
 i_password.place(x=14, y=130)
 
 
